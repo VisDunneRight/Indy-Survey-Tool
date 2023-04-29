@@ -1,0 +1,138 @@
+[
+	{
+		"url": "https://textvis.lnu.se",
+		"name": "TextVis Browser"
+	},
+	{
+		"url": "https://biovis.lnu.se",
+		"name": "BioVis Explorer"
+	},
+	{
+		"url": "https://trustmlvis.lnu.se",
+		"name": "TrustMLVis Browser"
+	},
+	{
+		"url": "http://vcg.informatik.uni-rostock.de/~ct/timeviz/timeviz.html",
+		"name": "TimeVis Browser"
+	},
+	{
+		"url": "http://treevis.net",
+		"name": "TreeVis.net"
+	},
+	{
+		"url": "http://dynamicgraphs.fbeck.com/",
+		"name": "Dynamic Graph Visualization"
+	},
+	{
+		"url": "http://financevis.net",
+		"name": "The Finance Vis Browser"
+	},
+	{
+		"url": "http://hdc.cs.arizona.edu/people/kisaacs/STAR/",
+		"name": "Performance Visualization"
+	},
+	{
+		"url": "http://dataphys.org/list/",
+		"name": "Physical Visualization"
+	},
+	{
+		"url": "http://www.datavis.ca/milestones/",
+		"name": "Data Visualization Milestones"
+	},
+	{
+		"url": "http://www.sci.utah.edu/~shusenl/highDimSurvey/website/",
+		"name": "Visualizing High-Dimensional Data"
+	},
+	{
+		"url": "http://groups-in-graphs.corinna-vehlow.com/",
+		"name": "Visualizing Group Structures in Graphs"
+	},
+	{
+		"url": "http://matrixreordering.dbvis.de/",
+		"name": "Matrix Reordering Survey"
+	},
+	{
+		"url": "http://cartogram.cs.arizona.edu/survis-cartogram/",
+		"name": "The State of the Art in Cartograms"
+	},
+	{
+		"url": "http://sparklines-literature.fbeck.com/",
+		"name": "Sparklines Literature"
+	},
+	{
+		"url": "http://104.196.253.120/pva_browser",
+		"name": "Predictive Visual Analytics Browser"
+	},
+	{
+		"url": "http://sos.swansea.ac.uk/",
+		"name": "Survey of Surveys (SoS) Literature Collection"
+	},
+	{
+		"url": "http://collectionvis.org/",
+		"name": "Visualization of Cultural Heritage Collection Data"
+	},
+	{
+		"url": "http://visbooks.swansea.ac.uk/",
+		"name": "Survey of Information Visualization Books"
+	},
+	{
+		"url": "https://vdl.sci.utah.edu/mvnv/",
+		"name": "Multivariate Network Visualization Techniques"
+	},
+	{
+		"url": "https://aviz.fr/~bbach/spacetimecubes/",
+		"name": "Space-Time Cube Vis"
+	},
+	{
+		"url": "https://multivis.net/",
+		"name": "Multifaceted Data Visualization"
+	},
+	{
+		"url": "https://agrepository.github.io/",
+		"name": "Accessible Graphics Repository"
+	},
+	{
+		"url": "https://hce-star.dbvis.de/",
+		"name": "Human-Centered Evaluations of Human-Centered Machine Learning"
+	},
+	{
+		"url": "https://geonetworks.github.io/",
+		"name": "Geospatial Network Visualization"
+	},
+	{
+		"url": "https://provenance-survey.caleydo.org/",
+		"name": "Analysis of User Interactions and Visualization Provenance"
+	},
+	{
+		"url": "https://rethinkingvis.com/",
+		"name": "ReThinking Visualization"
+	},
+	{
+		"url": "https://commercialtools.dbvis.de/",
+		"name": "Commercial Visual Analytics Tools"
+	},
+	{
+		"url": "https://computergraphics.on.liu.se/image_synthesis_methods_for_visual_machine_learning/#",
+		"name": "Image Synthesis Methods for Visual Machine Learning"
+	},
+	{
+		"url": "https://sites.google.com/site/drminchen/cgf-info/cgf-stars",
+		"name": "Min Chen's List of Survey Articles"
+	},
+	{
+		"url": "https://infovis-wiki.net/wiki/Interactive_Online_Surveys",
+		"name": "List of Interactive Online Surveys at InfoVis Wiki"
+	},
+	{
+		"url": "https://www.cvast.tuwien.ac.at/SetViz",
+		"name": "Sets and Set-typed Data Visualization"
+	},
+	{
+		"url": "https://docs.google.com/spreadsheets/d/1yJkf-Nt0kel8hojLZJQiJeWR5Qc-HHqvKvpRDVrfc9g/edit#gid=0",
+		"name": "Visualization and Interactive Surfaces"
+	},
+	{
+		"url": "https://sites.google.com/view/visres",
+		"name": "Visualization Resources"
+	}
+]
