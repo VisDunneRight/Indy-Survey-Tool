@@ -47,6 +47,7 @@
 		}
 		 
 	});
+	addMissingValues();
 
 	function freqCount(prop, arrValue, freqDict) {
 		if (prop in meta && meta[prop].type === 'MultiSelect') {
@@ -70,7 +71,41 @@
 		});
 		paper['selected'] = false;
 	});
+	function addMissingValues(){
+		filterBy.forEach((group)=>{
+			if("groupName" in group){
+				group['categories'].forEach((cate)=>{
+					if(!("values" in cate)){
+						const topics = new Set();
+						dataMeta.data.forEach((paper) => {
+							if(cate['name'] in paper){
+								paper[cate['name']].forEach((word)=>{
+									topics.add(word);
+								});
+							}
+						});
+						cate['values'] = [...topics]
+					}
+				})
+
+			} else {
+				if(!("values" in group)){
+					const topics = new Set();
+					dataMeta.data.forEach((paper) => {
+						if(group['name'] in paper){
+							paper[group['name']].forEach((word)=>{
+								topics.add(word);
+							});
+						}
+					});
+					group['values'] = [...topics]
+				}
+			}
+		});
+	}
+
 	onMount(async () => {
+		
 		applyFilters();
 	});
 

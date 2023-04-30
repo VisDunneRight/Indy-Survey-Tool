@@ -111,7 +111,7 @@
 					variant="outlined"
 					on:change={generateJson}
 					bind:value={stitle}
-					label="e.g., VR-NetworkLayout"
+					label="e.g., ex-Short Title"
 				/>
 			</div>
 		</div>
@@ -150,7 +150,7 @@
 					variant="outlined"
 					on:change={generateJson}
 					bind:value={authors}
-					label="e.g., John Doe and Jane Doe and Jack Doe"
+					label="e.g., John Doe, Jane Doe, Jack Doe"
 				/>
 			</div>
 		</div>

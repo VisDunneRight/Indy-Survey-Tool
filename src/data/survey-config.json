@@ -1,327 +1,49 @@
 {
   "filterBy": [
     {
-        "groupName": "Theory and Contribution",
-        "categories":
-        [
+        "groupName":"Paper Types",
+        "categories":[
             {
-                "name": "Opportunity",
-                "values": [
-                    "Engagement",
-                    "Collaboration",
-                    "Situated Analytics",
-                    "Embodied Data Exploration",
-                    "Spatial Immersion",
-                    "Multi-Sensory Presentation"
-                ]
-            },
-            {
-                "name": "Contribution Type",
-                "values": [
-                    "Technique",
-                    "Evaluation",
-                    "Design Study",
-                    "System"
-                ]
-            }
-
-        ]
-    },
-    {
-        "groupName": "Immesive Technology",
-        "categories":
-        [
-            {
-                "name": "Presentation",
-                "values": [
-                    "VR",
-                    "Phone",
-                    "Tablet",
-                    "Desktop",
-                    "AR",
-                    "Handheld",
-                    "Scent",
-                    "LID",
-                    "Tabletop",
-                    "Haptic Display",
-                    "HMD"
-                ]
-            },
-            {
-                "name": "Input",
-                "values": [
-                    "Custom Controller",
-                    "Voice",
-                    "Mobile Device",
-                    "None",
-                    "Gaze",
-                    "Body",
-                    "Commercial Controller",
-                    "Gesture",
-                    "Mouse/Keyboard"
-                ]
-            },
-            {
-                "name": "Device",
-                "values": [
-                    "Metavision Meta 1",
-                    "Oculus Quest 2",
-                    "Metavision Meta 2 glasses",
-                    "Motion J3400",
-                    "CAVE 2",
-                    "Nubia z17mini",
-                    "Oculus Rift CV1",
-                    "HTC vive Focus",
-                    "iPhone 8 Plus",
-                    "iPad Air",
-                    "Oculus Rift S",
-                    "Custom",
-                    "Daydream",
-                    "Epson Moverio",
-                    "Hololens 2",
-                    "HP Reverb",
-                    "Samsung Galaxy Tab Se5",
-                    "Google project tango tablet",
-                    "CAVE",
-                    "Hololens",
-                    "Android Mobile Device",
-                    "Intel Realsense f200",
-                    "HTC vive",
-                    "Lenovo Tablet",
-                    "NA",
-                    "iPad Pro 11in 2018",
-                    "Oculus Quest",
-                    "HTC Vive pro"
-                ]
-            }
-
-        ]
-    },
-    {
-        "groupName": "Data",
-        "categories":
-        [
-            {
-                "name": "Dataset Types",
-                "values": [
-                    "Network",
-                    "Tabular",
-                    "Volumetric data",
-                    "Spatial",
-                    "Fields"
-                ]
-            },
-            {
-                "name": "Dataset Generation",
-                "values": [
-                    "Interactive",
-                    "Dynamic",
-                    "Pre-computation",
-                    "Static",
-                    "Live-computation"
-                ]
+                "name":"Paper Type"
             }
         ]
     },
     {
-        "groupName": "Spatial Presentation",
-        "categories":
-        [
+        "groupName":"Visualization Usage",
+        "categories":[
             {
-                "name": "Environment",
-                "values": [
-                    "Object",
-                    "Wall",
-                    "Room Scale",
-                    "Seated",
-                    "Outdoors",
-                    "Table"
-                ]
+                "name":"Type of Visualization shown"
             },
             {
-                "name": "Space",
-                "values": [
-                    "Infinite",
-                    "Situated",
-                    "Finite"
-                ]
-            },
-            {
-                "name": "Embodiment",
-                "values": [
-                    "Exocentric",
-                    "Egocentric"
-                ]
-            }, 
-            {
-                "name": "Collaboration ",
-                "values": [
-                    "None",
-                    "Synchronous Distributed",
-                    "Cross-virtuality",
-                    "Synchronous Co-located"
+                "name":"Use of Color",
+                "values":[
+                    "No",
+                    "Yes"
                 ]
             }
-
-        ]
-    },
-    {
-        "groupName": "Visual Presentation",
-        "categories":
-        [
-            {
-                "name": "Abstract/Natural",
-                "values": [
-                    "Abstract",
-                    "Natural Spatial Mapping"
-                ]
-            },
-            {
-                "name": "2D or 3D",
-                "values": [
-                    "3D",
-                    "2D"
-                ]
-            },
-            {
-                "name": "Visualization",
-                "values": [
-                    "3D Bubble Chart",
-                    "Volume Visualization",
-                    "3D Parallel Coord",
-                    "2D Radial Chart",
-                    "3D Node Link",
-                    "3D Pictogram",
-                    "Time-Line",
-                    "Anatomical",
-                    "Parallel Coord",
-                    "Space-Time Cube",
-                    "2D Trajectory",
-                    "Point Map",
-                    "3D Trajectory",
-                    "3D Flow",
-                    "3D Area Chart",
-                    "3D Map",
-                    "2D Storyline",
-                    "2D Scatter Plot",
-                    "2D Violin Plots",
-                    "2D Map",
-                    "2D Bar Chart",
-                    "2D Histogram",
-                    "3D Globe",
-                    "3D Scatter Plot",
-                    "2D Word Cloud",
-                    "2D Line Chart",
-                    "2D Pie Chart",
-                    "3D Time-Line",
-                    "3D Word Cloud",
-                    "2D Boxplot",
-                    "Glyph/Realism",
-                    "Area Chart",
-                    "3D Origin Destination",
-                    "3D Bar Chart",
-                    "3D Matrix/Heatmap",
-                    "3D Flow Network",
-                    "2D Sunburst Chart",
-                    "2D Node Link",
-                    "2D Matrix/Heatmap"
-                ]
-            },
-            {
-                "name": "Position",
-                "values": [
-                    "Unfixed",
-                    "Fixed (Point)",
-                    "Fixed (Body)",
-                    "Fixed (Object)"
-                ]
-            },
-            {
-                "name": "Scale",
-                "values": [
-                    "Large",
-                    "Medium",
-                    "Small"
-                ]
-            },
-            {
-                "name": "Manipulate",
-                "values": [
-                    "Filter",
-                    "Rotate",
-                    "Annotate",
-                    "Pan",
-                    "Arrange",
-                    "Select",
-                    "Scale",
-                    "None",
-                    "Slice",
-                    "Navigate",
-                    "Translate",
-                    "Change",
-                    "Zoom"
-                ]
-            },
-            {
-                "name": "Interaction",
-                "values": [
-                    "Type",
-                    "Rotate",
-                    "Touch",
-                    "Click",
-                    "Grab",
-                    "None",
-                    "Gaze",
-                    "Slide",
-                    "Raycast",
-                    "Gesture",
-                    "Brushing",
-                    "Speak",
-                    "Move",
-                    "Draw",
-                    "Pinch"
-                ]
-            }
-
         ]
     }
   ],
   "detailView": {
     "view" : "normal",
     "show":[
-    "Opportunity",
-    "Contribution Type",
-    "Data Domain",
-    "Dataset Types",
-    "Dataset Generation",
-    "Presentation",
-    "Device",
-    "Input",
-    "Environment",
-    "Space",
-    "Embodiment",
-    "Collaboration ",
-    "Interaction",
-    "Visualization",
-    "Abstract/Natural",
-    "Manipulate",
-    "Position",
-    "Scale",
-    "2D or 3D"
+        "Paper Type",
+        "Type of Visualization shown",
+        "Use of Color"
     ]
   },
   "summaryView": {
     "view": "text",
-    "show":[]
+    "show":["Paper Type"]
   },
   "topView": {
-    "title":"Immersive Analytics",
-    "description":"Unraveling the Design Space of Immersive Analytics Systems and Visualizations: A Systematic Literature Review.",
+    "title":"Example Survey",
+    "description":"Example on how a survey can be setup",
     "authors":"Provided by Data Visualization @ Khoury",
     "addEntry": {
-      "description":["If you are an author of a peer-reviewed published work on Immersive Analytics that presents a contribution missing in our browser, please feel free to submit an entry. Filling out the form below will create a json entry that can be added as an issue to the github together with a 100x100px PNG thumbail.",
+      "description":["If you are an author of a peer-reviewed published work on example surveys that presents a contribution missing in our browser, please feel free to submit an entry. Filling out the form below will create a json entry that can be added as an issue to the github together with a 200x200px PNG thumbail.",
                      "The URL provided in the form should point to a DOI. Also, please acknowledge the fact that by submitting an entry, you provide us with permissions to use your image on this resource and in related publications."],
-      "github":"https://github.com/VisDunneRight/IA-Survey/issues"
+      "github":"https://github.com/VisDunneRight/indy-survey-tool/issues"
     }
   }
 }
