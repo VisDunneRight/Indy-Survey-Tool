@@ -65,8 +65,8 @@ The easiest method of uplaoding survey papers in bulk is using our CSV converter
    * In Zotero, right-click the collection -> "Export Collection" -> Format: "CSV"
    * In Airtable, under the name of the view select "Download CSV"
    * In Notion, click the ... icon -> "Export" -> Export format: "Markdown & CSV"
-2. Save the file to the root directory of this project with the name [AI-Survey.csv](AI-Survey.csv).
-3. Edit the headers of the CSV file, if necessary. Note that at a minimum, `Name`, `Year`, `Authors`, `DOI`, and `Bibtex` are required. Make sure the headers match exactly. See [Adding a New Paper Categorization](#adding-a-new-paper-categorization) for more information about defining more categories for the papers.
+2. Save the file to the root directory of this project with the name [Survey-Info.csv](Survey-Info.csv).
+3. Edit the headers of the CSV file, if necessary. Note that at a minimum, `Name`, `Year`, `Authors` (comma separated), `DOI`, and `Bibtex` are required. Make sure the headers match exactly. See [Adding a New Paper Categorization](#adding-a-new-paper-categorization) for more information about defining more categories for the papers.
 4. Run the following code to generate a file named [survey-data.json]().
     ```bash
     python3 convertCSVtoJson.py
