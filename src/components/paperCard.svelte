@@ -16,13 +16,13 @@
 	import Menu from '@smui/menu';
 	import Dialog from '@smui/dialog';
 	import PaperDetail from './paperDetail.svelte';
+	import Multiselect from './multiselect.svelte';
 	
 
 	export let paper;
 	export let summaryView;
 	export let detailView;
 	export let meta;
-	export let showImg;
 	let menu;
 	let open = false;
 	let snackbarWithClose;
@@ -44,58 +44,95 @@
 		</Content>
 	</Dialog>
 	
-	<Card class={showImg === true ? 'card-image' : 'card-text'}>
+	<Card class={summaryView.view === "image" ? 'card-image' : 'card-text'}>
 		<PrimaryAction on:click={() => (open = true)}>
-			{#if showImg}
-				<Media class="card-media-square" aspectRatio="square" />
+			{#if summaryView.showImg}
+				<!-- <Media class="card-media-square" aspectRatio="square" src={paper.img ? paper.img : "/images/defaultImage.png"} /> -->
 			{/if}
-			<Content class="mdc-typography--body5">
-				<h2 class="mdc-typography--headline6" style="margin: 0;">{paper.Name} ({paper.Year})</h2>
-				<h3 class="mdc-typography--subtitle2" style="margin: 0 0 10px; color: #888;">
-					by {paper.Authors}
-				</h3>
+			<Content class="mdc-typography--body5" style={"display:flex"}>
+				{#if summaryView.showImg}
+					<div style={"padding-right:10px"}>
+							<img src={paper.image ? paper.image : "/images/defaultImage.png"} 
+									width="200" height=200
+									alt={paper.altImage ? paper.altImage: "Image from the paper"}
+									/>
+					</div>
+				{/if}
+				<div>
+					<h2 class="mdc-typography--headline6" style="margin: 0;">{paper.Name} ({paper.Year})</h2>
+					<h3 class="mdc-typography--subtitle2" style="margin: 0 0 10px; color: #888;">
+						by {paper.Authors}
+					</h3>
+					{#each summaryView.show as prop}
+						{#if meta[prop].type === 'String'}
+							<div class="string-select">
+								<div class="mdc-typography--body1"><strong>{prop}:&nbsp;</strong></div>
+								<div class="mdc-typography--body1">{paper[prop]}</div>
+							</div>
+						{:else if meta[prop].type === 'MultiSelect'}
+							<div class="multi-select">
+								<div class="mdc-typography--body1"><strong>{prop}:</strong></div>
+								{#if paper[prop].length > 0 && paper[prop][0] !== ''}
+									<Multiselect list={paper[prop]} />
+								{/if}
+							</div>
+						{/if}
+					{/each}
+				</div>
 			</Content>
 		</PrimaryAction>
-		<Actions style="padding-left:15px">
-			<!-- Added by: Tarik Crnovrsanin. -->
-			<ActionButtons>
-				<!-- <Button on:click={() => clicked++}>
-					<Label>new Window</Label>
-				</Button> -->
-			</ActionButtons>
-			<ActionIcons>
-				<IconButton class="material-icons" on:click={() => menu.setOpen(true)} title="More options"
-					>more_vert</IconButton
-				>
-				<div>
-					<Menu bind:this={menu}>
-						<List>
-							<Clipboard
-										text={paper.Bibtex}
-										let:copy
-										on:copy={() => {
-											snackbarWithClose.open();
-										}}
-									>
-								<Item on:SMUI:action={copy}>
-								<Icon class="material-icons">download</Icon>
-								<Text>BibTex</Text>
+		<div style={"z-index:2;"}>
+			<Actions style="padding-left:15px">
+				<!-- Added by: Tarik Crnovrsanin. -->
+				<ActionButtons>
+					<!-- <Button on:click={() => clicked++}>
+						<Label>new Window</Label>
+					</Button> -->
+				</ActionButtons>
+				<ActionIcons>
+					<div class="menu-loc">
+						<IconButton class="material-icons" 
+							on:click={() => menu.setOpen(true)} title="More options"
+							>more_vert</IconButton
+						>
+						<Menu bind:this={menu}>
+							<List>
+								<Clipboard
+											text={paper.Bibtex}
+											let:copy
+											on:copy={() => {
+												snackbarWithClose.open();
+											}}
+										>
+									<Item on:SMUI:action={copy}>
+									<Icon class="material-icons">download</Icon>
+									<Text>BibTex</Text>
+									</Item>
+								</Clipboard>
+								<Item on:SMUI:action={() => console.log("work in progress")}>
+									<Text>Update Entry</Text>
 								</Item>
-							</Clipboard>
-							
-							<Item on:SMUI:action={() => console.log("work in progress")}>
-								<Text>Update Entry</Text>
-							</Item>
-						</List>
-					</Menu>
-				</div>
-			</ActionIcons>
-		</Actions>
+							</List>
+						</Menu>
+					</div>
+				</ActionIcons>
+			</Actions>
+		</div>
 	</Card>
 	
 </div>
 
 <style>
+	.menu-loc{
+		/* left:-10px !important; */
+	}
+	.multi-select {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		align-content: flex-start;
+	}
 	.close-button {
 		position: absolute;
 		top: 0px;

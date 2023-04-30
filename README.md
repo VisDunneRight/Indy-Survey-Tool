@@ -163,16 +163,18 @@ Filter groups are comprised of parts of one or more paper categories. These filt
 
 To change what is displayed when a user clicks on a specific paper, open [src/data/survey-config.json](src/data/survey-config.json) and navigate to the `"detailView"` tag. Under `"show"`, a list of paper properties to be displayed when the paper is clicked can be provided. By default, the following properties are shown:
 
-* Title
-* Short Title
+* Name
 * Authors
 * Year
 * DOI
 * BibTeX
+* Image
+
+If Image is not provided, it will not be displayed in the Detail View. Image points to name and location. Generally it will look like `" "image": "/images/ImageName.png" "` with the corresponding image placed in the /public/images/ folder.
 
 ### Modifying the Paper Summary View
 
-To change what is displayed in the central panel paper view, open [src/data/survey-config.json](src/data/survey-config.json) and navigate to the `"summaryView"` tag. Under `"show"`, a list of paper properties to be displayed when the paper is clicked can be provided. By default, only title and authors are shown.
+To change what is displayed in the central panel paper view, open [src/data/survey-config.json](src/data/survey-config.json) and navigate to the `"summaryView"` tag. Under `"show"`, a list of paper properties to be displayed when the paper is clicked can be provided. By default, only title and authors are shown. To enable images to be shown, add `""showImg": true,"` to `"summaryView"`. 
 
 ### Modifying the Title & Top Panel Information
 

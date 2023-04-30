@@ -34,11 +34,12 @@
   },
   "summaryView": {
     "view": "text",
+    "showImg": true,
     "show":["Paper Type"]
   },
   "topView": {
     "title":"Example Survey",
-    "description":"Example on how a survey can be setup",
+    "description":"An example survey setup.",
     "authors":"Provided by Data Visualization @ Khoury",
     "addEntry": {
       "description":["If you are an author of a peer-reviewed published work on example surveys that presents a contribution missing in our browser, please feel free to submit an entry. Filling out the form below will create a json entry that can be added as an issue to the github together with a 200x200px PNG thumbail.",

@@ -18,42 +18,52 @@
 		<IconButton class="material-icons" title="Dismiss">close</IconButton>
 	</Actions>
 </Snackbar>
-<div class="paper-container">
-	<h2 class="mdc-typography--headline6" style="margin: 0 20px 0 0 ;">
-		{paper.Name} ({paper.Year})
-	</h2>
-	<h3 class="mdc-typography--subtitle2" style="margin: 0 0 10px; color: #888;">
-		by {paper.Authors}
-	</h3>
-	{#each detailView.show as prop}
-		{#if meta[prop].type === 'String'}
-			<div class="string-select">
-				<div class="mdc-typography--body1"><strong>{prop}:&nbsp;</strong></div>
-				<div class="mdc-typography--body1">{paper[prop]}</div>
-			</div>
-		{:else if meta[prop].type === 'MultiSelect'}
-			<div class="multi-select">
-				<div class="mdc-typography--body1"><strong>{prop}:</strong></div>
-				{#if paper[prop].length > 0 && paper[prop][0] !== ''}
-					<Multiselect list={paper[prop]} />
-				{/if}
-			</div>
-		{/if}
-	{/each}
-	<div class="url-link">URL: <a href={paper.DOI}>{paper.DOI}</a></div>
-	<div class="paper-icon">
-		<Clipboard
-			text={paper.Bibtex}
-			let:copy
-			on:copy={() => {
-				snackbarWithClose.open();
-			}}
-		>
-			<Button color="secondary" on:click={copy}>
-				<Icon class="material-icons">download</Icon>
-				<Label>Bibtex</Label>
-			</Button>
-		</Clipboard>
+<div class="detail-view">
+	{#if paper.image}
+		<div style={"padding-right:10px"}>
+				<img src={paper.image ? paper.image : "/images/defaultImage.png"} 
+						width="200" height=200
+						alt={paper.altImage ? paper.altImage: "Image from the paper"}
+						/>
+		</div>
+	{/if}
+ 	<div  class="paper-container">
+		<h2 class="mdc-typography--headline6" style="margin: 0 20px 0 0 ;">
+			{paper.Name} ({paper.Year})
+		</h2>
+		<h3 class="mdc-typography--subtitle2" style="margin: 0 0 10px; color: #888;">
+			by {paper.Authors}
+		</h3>
+		{#each detailView.show as prop}
+			{#if meta[prop].type === 'String'}
+				<div class="string-select">
+					<div class="mdc-typography--body1"><strong>{prop}:&nbsp;</strong></div>
+					<div class="mdc-typography--body1">{paper[prop]}</div>
+				</div>
+			{:else if meta[prop].type === 'MultiSelect'}
+				<div class="multi-select">
+					<div class="mdc-typography--body1"><strong>{prop}:</strong></div>
+					{#if paper[prop].length > 0 && paper[prop][0] !== ''}
+						<Multiselect list={paper[prop]} />
+					{/if}
+				</div>
+			{/if}
+		{/each}
+		<div class="url-link">URL: <a href={paper.DOI}>{paper.DOI}</a></div>
+		<div class="paper-icon">
+			<Clipboard
+				text={paper.Bibtex}
+				let:copy
+				on:copy={() => {
+					snackbarWithClose.open();
+				}}
+			>
+				<Button color="secondary" on:click={copy}>
+					<Icon class="material-icons">download</Icon>
+					<Label>Bibtex</Label>
+				</Button>
+			</Clipboard>
+		</div>
 	</div>
 </div>
 
@@ -88,5 +98,8 @@
 	.paper-container {
 		display: flex;
 		flex-direction: column;
+	}
+	.detail-view {
+		display: flex;
 	}
 </style>
