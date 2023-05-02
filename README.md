@@ -2,7 +2,10 @@
 
 This is the repository for Indy Survey Tool, a framework to unearth correlations in survey data. Our framework allows for easily importing papers, and creates a beautiful companion webpage for your survey, with visualizations and filtering tools which are customizable to your needs. The webpage allows anyone to submit information about new papers to be included in the survey, in order to keep data relevant even after publication.
 
-Survey webpages built using Indy Survey Tool: [Sara's survey, David's survey]
+Survey webpages built using Indy Survey Tool:
+- https://visdunneright.github.io/gd-comp-eval/
+- IA Survey Redected (Under Review)
+
 
 ## Table of Contents<!-- omit from toc -->
 
