@@ -60,7 +60,7 @@ It should provide a link to localhost to view the site in your browser.
 
 ## Uploading Survey Papers
 
-The easiest method of uplaoding survey papers in bulk is using our CSV converter, but it is also possible to add papers individually.
+The easiest method of uploading survey papers in bulk is using our CSV converter, but it is also possible to add papers individually.
 
 ### Upload in Bulk
 
