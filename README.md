@@ -1,8 +1,11 @@
 # Indy Survey Tool<!-- omit from toc -->
 
-This is the repository for Indy Survey Tool, a framework to unearth correlations in survey data. Our framework allows for easily importing papers, and creates a beautiful companion webpage for your survey, with visualizations and filtering tools which are customizable to your needs. The webpage allows anyone to submit information about new papers to be included in the survey, in order to keep data relevant even after publication.
+This is the repository for Indy Survey Tool, a framework to unearth correlations in survey data. Our framework allows for easily importing papers, and creates a beautiful companion webpage for your survey, with visualizations and filtering tools which are customizable to your needs. The webpage allows anyone to submit information about new papers to be included in the survey in order to keep data relevant even after publication.
 
-Survey webpages built using Indy Survey Tool: [Sara's survey, David's survey]
+Survey webpages built using Indy Survey Tool:
+- [Evaluating Graph Layout Algorithms: A Systematic Review of Methods and Best Practices](https://visdunneright.github.io/gd-comp-eval/) 
+- [Immersive Analystics](https://github.com/VisDunneRight/IA-Survey)
+
 
 ## Table of Contents<!-- omit from toc -->
 
@@ -57,7 +60,7 @@ It should provide a link to localhost to view the site in your browser.
 
 ## Uploading Survey Papers
 
-The easiest method of uplaoding survey papers in bulk is using our CSV converter, but it is also possible to add papers individually.
+The easiest method of uploading survey papers in bulk is using our CSV converter, but it is also possible to add papers individually.
 
 ### Upload in Bulk
 
