@@ -157,8 +157,8 @@
       visData.matrix = visData.matrix;
     } else{
       countFreq(getValues(dimX, dimX.color), getValues(dimY, dimY.color), data, visData);
-      visData.cateSepX.push({groupName: dimX.name, line:[0, dimX.categories.length]})
-      visData.cateSepY.push({groupName: dimY.name, line:[0, dimY.categories.length]})
+      visData.cateSepX.push({groupName: dimX.name, line:[0, dimX.values.length]})
+      visData.cateSepY.push({groupName: dimY.name, line:[0, dimY.values.length]})
       visData = visData;
     }
   }
