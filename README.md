@@ -4,7 +4,7 @@ This is the repository for Indy Survey Tool, a framework to unearth correlations
 
 Survey webpages built using Indy Survey Tool:
 - [Evaluating Graph Layout Algorithms: A Systematic Review of Methods and Best Practices](https://visdunneright.github.io/gd-comp-eval/) 
-- [Immersive Analystics]([https://github.com/VisDunneRight/IA-Survey](https://iadesign.space/))
+- [Immersive Analytics Design Space Survey Website](https://iadesign.space/)
 
 
 ## Table of Contents<!-- omit from toc -->
