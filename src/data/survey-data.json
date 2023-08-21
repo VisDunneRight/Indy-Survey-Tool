@@ -119,8 +119,7 @@
             ],
             "Use of Color": [
                 "Yes"
-            ],
-            "image" : "/images/defaultImage.png"
+            ]
         },
         {
             "Name": "Encodable: Configurable Grammar for Visualization Components",

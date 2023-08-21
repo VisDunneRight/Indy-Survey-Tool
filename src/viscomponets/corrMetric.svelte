@@ -69,7 +69,6 @@
   let visInit = {xAxis:[], yAxis:[], matrix:[], 
                  cateSepX:[], cateSepY:[],
                  paperCountX:[], paperCountY:[]}
-  
   $:visData = visInit;
   function getValues(cate, color){
     let values = [];
@@ -156,9 +155,11 @@
       visData = visData;
       visData.matrix = visData.matrix;
     } else{
-      countFreq(getValues(dimX, dimX.color), getValues(dimY, dimY.color), data, visData);
-      visData.cateSepX.push({groupName: dimX.name, line:[0, dimX.values.length]})
-      visData.cateSepY.push({groupName: dimY.name, line:[0, dimY.values.length]})
+      countFreq(getValues(dimX, dimX.color),
+        getValues(dimY, dimY.color), data, visData);
+
+      visData.cateSepX.push({groupName: dimX.name, line:[-1, dimX.values.length - 1]})
+      visData.cateSepY.push({groupName: dimY.name, line:[-1, dimY.values.length - 1]})
       visData = visData;
     }
   }
@@ -212,16 +213,17 @@
     if(vData === undefined){
       return 100;
     }
-    return Math.max(...vData.paperCountX, ...vData.paperCountY);;
+    return Math.max(...vData.paperCountX, ...vData.paperCountY);
   }
   
   $:maxPaperValue = getMaxCount(visData);
   $:maxColorValue = maxPaperValue
-  $:console.log("Here",selectedDimX, selectedDimY);
+  
 // width="{columnSpacing(visData.xAxis.length + 2) + padding.right}"
 // height="{modelRow(visData.yAxis.length + 2) + padding.bottom}"
 let w = 100, h = 100;
 </script>
+
 <div class="corr-container" bind:clientWidth={w} bind:clientHeight={h}>
   <div class="corr-menu">
     <span style={"padding-left:26px"}>Max Color Value: {maxColorValue}</span>
@@ -282,9 +284,9 @@ let w = 100, h = 100;
         </line>
         <line
           x1="{columnSpacing(pac.line[0]) + config.boxSize/2 + config.gap}"
-          y1="{modelRow(visData.yAxis.length - 1)}"
+          y1="{modelRow(visData.yAxis.length)}"
           x2="{columnSpacing(pac.line[1]) + config.boxSize/2}"
-          y2="{modelRow(visData.yAxis.length - 1)}"
+          y2="{modelRow(visData.yAxis.length)}"
           stroke-width="{config.lineThickiness}"
           class="end-line"
         >
@@ -321,6 +323,7 @@ let w = 100, h = 100;
           </line>
         {/if}
       {/each}
+      
       {#each visData.cateSepY as pac}  
         <line
           x1="{columnSpacing(-1)}"
@@ -333,9 +336,9 @@ let w = 100, h = 100;
         >
         </line>
         <line
-          x1="{columnSpacing(visData.xAxis.length - 1)}"
+          x1="{columnSpacing(visData.xAxis.length)}"
           y1="{modelRow(pac.line[0]) + config.boxSize/2 + config.gap}"
-          x2="{columnSpacing(visData.xAxis.length - 1)}"
+          x2="{columnSpacing(visData.xAxis.length)}"
           y2="{modelRow(pac.line[1]) + config.boxSize/2}"
           stroke-width="{config.lineThickiness}"
           class="end-line"
@@ -383,27 +386,27 @@ let w = 100, h = 100;
       {#each visData.cateSepX as pac}
         <line
           x1="{columnSpacing(pac.line[0]) + config.gap}"
-          y1="{modelRow(visData.yAxis.length) + config.boxSize/2}"
+          y1="{modelRow(visData.yAxis.length + 1) + config.boxSize/2}"
           x2="{columnSpacing(pac.line[1]) + config.boxSize}"
-          y2="{modelRow(visData.yAxis.length) + config.boxSize/2}"
+          y2="{modelRow(visData.yAxis.length + 1) + config.boxSize/2}"
           stroke-width="{config.lineThickiness}"
           class="cate-line"
         >
         </line>
         <line
           x1="{columnSpacing(pac.line[0]) + config.gap}"
-          y1="{modelRow(visData.yAxis.length)}"
+          y1="{modelRow(visData.yAxis.length + 1)}"
           x2="{columnSpacing(pac.line[0]) + config.gap}"
-          y2="{modelRow(visData.yAxis.length) + config.boxSize/2}"
+          y2="{modelRow(visData.yAxis.length + 1) + config.boxSize/2}"
           stroke-width="{config.lineThickiness}"
           class="cate-line"
         >
         </line>
         <line
           x1="{columnSpacing(pac.line[1]) + config.boxSize}"
-          y1="{modelRow(visData.yAxis.length)}"
+          y1="{modelRow(visData.yAxis.length + 1)}"
           x2="{columnSpacing(pac.line[1]) + config.boxSize}"
-          y2="{modelRow(visData.yAxis.length) + config.boxSize/2}"
+          y2="{modelRow(visData.yAxis.length + 1) + config.boxSize/2}"
           stroke-width="{config.lineThickiness}"
           class="cate-line"
         >
@@ -411,13 +414,13 @@ let w = 100, h = 100;
 
         <text
           x="{columnSpacing((pac.line[0] + pac.line[1])/2 + .5) }"
-          y="{modelRow(visData.yAxis.length + 1)}"
+          y="{modelRow(visData.yAxis.length + 2)}"
           text-anchor="middle"
           class="category-label">{pac.groupName}</text>
       {/each}
         <g>
           <text
-              x="{columnSpacing(visData.xAxis.length)+ config.boxSize/2}"
+              x="{columnSpacing(visData.xAxis.length + 1)+ config.boxSize/2}"
               y="{modelRow(-2) + config.boxSize/2}"
               text-anchor="middle"
               dominant-baseline="central"
@@ -427,7 +430,7 @@ let w = 100, h = 100;
             {#if typeof visData.xAxis[i] !== 'string'}
               <text
                 x="{columnSpacing(i)}"
-                y="{modelRow(visData.yAxis.length) - config.gap}"
+                y="{modelRow(visData.yAxis.length + 1) - config.gap}"
                 text-anchor="middle"
                 dominant-baseline="central"
                 class="total-count">{num}</text>
@@ -438,27 +441,27 @@ let w = 100, h = 100;
     <g class="total-y">
       {#each visData.cateSepY as pac}
         <line
-          x1="{columnSpacing(visData.xAxis.length) + config.boxSize}"
+          x1="{columnSpacing(visData.xAxis.length + 1) + config.boxSize}"
           y1="{modelRow(pac.line[0]) + config.gap}"
-          x2="{columnSpacing(visData.xAxis.length) + config.boxSize}"
+          x2="{columnSpacing(visData.xAxis.length + 1) + config.boxSize}"
           y2="{modelRow(pac.line[1]) + config.boxSize }"
           stroke-width="{config.lineThickiness}"
           class="cate-line"
         >
         </line>
         <line
-          x1="{columnSpacing(visData.xAxis.length) }"
+          x1="{columnSpacing(visData.xAxis.length + 1) }"
           y1="{modelRow(pac.line[0]) + config.gap}"
-          x2="{columnSpacing(visData.xAxis.length) + config.boxSize}"
+          x2="{columnSpacing(visData.xAxis.length + 1) + config.boxSize}"
           y2="{modelRow(pac.line[0]) + config.gap}"
           stroke-width="{config.lineThickiness}"
           class="cate-line"
         >
         </line>
         <line
-          x1="{columnSpacing(visData.xAxis.length)}"
+          x1="{columnSpacing(visData.xAxis.length + 1)}"
           y1="{modelRow(pac.line[1]) + config.boxSize}"
-          x2="{columnSpacing(visData.xAxis.length) + config.boxSize}"
+          x2="{columnSpacing(visData.xAxis.length + 1) + config.boxSize}"
           y2="{modelRow(pac.line[1]) + config.boxSize}"
           stroke-width="{config.lineThickiness}"
           class="cate-line"
@@ -466,7 +469,7 @@ let w = 100, h = 100;
         </line>
 
         <text
-          x="{columnSpacing(visData.xAxis.length + 1) }"
+          x="{columnSpacing(visData.xAxis.length + 2) }"
           y="{modelRow((pac.line[0] + pac.line[1])/2 + .5)}"
           text-anchor="left"
           class="category-label">{pac.groupName}</text>
@@ -475,7 +478,7 @@ let w = 100, h = 100;
         <g>
           <text
               x="{columnSpacing(-1) - config.boxSize/2}"
-              y="{modelRow(visData.yAxis.length - 1) + config.boxSize}"
+              y="{modelRow(visData.yAxis.length) + config.boxSize}"
               text-anchor="end"
               dominant-baseline="central"
               class="total-count">Paper Count:</text>
@@ -483,7 +486,7 @@ let w = 100, h = 100;
           {#each visData.paperCountY as num, j}
             {#if typeof visData.yAxis[j] !== 'string'}
               <text
-                x="{columnSpacing(visData.xAxis.length)}"
+                x="{columnSpacing(visData.xAxis.length + 1)}"
                 y="{modelRow(j)}"
                 text-anchor="middle"
                 dominant-baseline="central"
