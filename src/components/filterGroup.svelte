@@ -1,10 +1,10 @@
 <script>
-	import Chip, { Set, Text } from '@smui/chips';
 	import { createEventDispatcher } from 'svelte';
-	import Button, { Label } from '@smui/button';
 	import { onMount } from 'svelte';
-	import { Header, Content } from '@smui-extra/accordion';
-
+	
+	import { AccordionItem, Button, Badge, P } from 'flowbite-svelte';
+	import { categoryFilters } from '../store';
+	import diffence from 'lodash/difference';
 	const dispatch = createEventDispatcher();
 
 	export let name;
@@ -12,14 +12,10 @@
 	export let values;
 	export let freqGroup;
 	
-
 	let listVal = [];
 	const sShowCount = 10;
 	let showCount = 10;
 	let listSelected = [''];
-
-	listVal = values;
-	
 
 	const updateShowCount = (newCount) => {
 		const temp = values.sort((a, b) => {
@@ -36,67 +32,44 @@
 		});
 	};
 
-	const updateSelection = (selected) => {
-		const re = new RegExp("([0-9]+)")
-		
-		listSelected.forEach((sel) => {
-			let res = re.test(sel) ? sel.split(') ')[1]: sel;
-			if(!selected.includes(res))
-				selected.push(res)
-		});
-		
-		dispatch('message', { text: selected });
-	};
-	// function updateSelectedList(selected){
-	// 	return [...selected];
-	// }
 	listSelected = [...selected];
 
 	onMount(async () => {
 		updateShowCount(showCount);
 	});
 	
+	selected = $categoryFilters;
 </script>
-
-<Header>
-	<div class="sizing">
-		<div>
+<AccordionItem>
+	<P weight="semibold" slot="header" >
 			{name}
 			{#if listSelected !== undefined && listSelected.length}
 				<span style="color:gray">
 					({listSelected.length})
 				</span>
 			{/if}
-		</div>
+	</P>
+	<div class="space-y-1 flex-col flex flex-shrink items-start">
+		{#each listVal as value}
+			<Badge large color="dark" class="cursor-pointer" >{value}</Badge>	
+		{/each}
 	</div>
-</Header>
-
-<Content>
-	<Set chips={listVal} let:chip filter 
-				bind:selected={listSelected} 
-				on:click={(e) => updateSelection(selected)}>
-		<Chip {chip} touch>
-			<Text>{chip}</Text>
-		</Chip>
-	</Set>
-	<div>
+	
+	<div class="space-y-1" style="padding-top: 3px">
 		{#if showCount > sShowCount}
-			<Button on:click={() => updateShowCount(showCount - 10)}>
-				<Label>see less</Label>
+			<Button outline class="border-0" size="xs" on:click={() => updateShowCount(showCount - 10)}>
+				see less
 			</Button>
 		{/if}
 		{#if showCount <= values.length}
-			<Button on:click={() => updateShowCount(showCount + 10)}>
-				<Label>see more</Label>
+			<Button outline class="border-0" size="xs" on:click={() => updateShowCount(showCount + 10)}>
+				see more
 			</Button>
 		{/if}
 	</div>
-</Content>
+
+</AccordionItem>
 
 <style>
-	.sizing {
-		/* font-size: 10px !important; */
-		font-weight: bold !important;
-		white-space: normal !important;
-	}
+
 </style>

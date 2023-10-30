@@ -1,6 +1,7 @@
 <script>
   import {Pane, Splitpanes} from 'svelte-splitpanes';
-	import IconButton from '@smui/icon-button';
+	import {P, Button} from 'flowbite-svelte';
+	import {ChevronDoubleLeftOutline, ChevronDoubleRightOutline} from 'flowbite-svelte-icons'
 	import PaperCard from './components/paperCard.svelte';
 	import FilterPanel from './filterPanel.svelte';
 	import SearchField from './components/searchField.svelte';
@@ -9,23 +10,18 @@
   import Vis from "./vis.svelte";
 	import structure from './data/survey-config.json';
 	import dataMeta from './data/survey-data.json';
-
-	import { onMount } from 'svelte';
+	import {searchFilter, categoryFilters, timeFilters} from './store';
+	import flatten from 'lodash/flatten'
 
 	let innerHeight = 0;
 	let innerWidth = 0;
 
-	let showImg = false;
 	let showVis = true;
 	let filteredData = [];
 	let meta = {};
 	let freq = {};
 	let filteredFreq = {};
 	let selectTopics = [];
-	let filter = {
-		searchWord: '',
-		yearRange: [-1, -1]
-	};
 
 	//Restructuring parts of the data passed in
 	dataMeta.meta.forEach((prop) => {
@@ -47,6 +43,7 @@
 		}
 		 
 	});
+	$:console.log(structure.filterBy)
 	addMissingValues();
 
 	function freqCount(prop, arrValue, freqDict) {
@@ -71,6 +68,7 @@
 		});
 		paper['selected'] = false;
 	});
+
 	function addMissingValues(){
 		filterBy.forEach((group)=>{
 			if("groupName" in group){
@@ -104,28 +102,24 @@
 		});
 	}
 
-	onMount(async () => {
-		
-		applyFilters();
-	});
 
-	function applyFilters() {
-		console.log("ApplyFilters:", filterBy);
+	function applyFilters(searchFilter, timeFilters, categoryFilters) {
 		//This is a shallow copy, we only interested in the order
 		let startingPoint = [...dataMeta.data];
 
 		//Filter by search bar
-		if (filter.searchWord !== '') {
+		if (searchFilter !== '' && searchFilter.length > 2) {
 			startingPoint = startingPoint.filter((paper) =>
-				paper.Name.toLowerCase().includes(filter.searchWord.toLowerCase())
+				paper.Name.toLowerCase().includes(searchFilter.toLowerCase())
 			);
 		}
-		if (filter.yearRange[0] > 0)
+		if (timeFilters.start > 0)
 			startingPoint = startingPoint.filter(
-				(paper) => filter.yearRange[0] < +paper.Year && +paper.Year < filter.yearRange[1]
+				(paper) => timeFilters.start <= +paper.Year && +paper.Year <= timeFilters.end
 			);
 
 			const re = new RegExp("([0-9]+)")
+
 		//Filter by categories
 		filterBy.forEach((group) => {
 			if(group.values){
@@ -213,48 +207,39 @@
 		showVis = !showVis;
 	}
 
-	function updateSearchResults(search) {
-		filter.searchWord = search.detail.text;
-		applyFilters();
-	}
-	function updateTimeRange(ranges) {
-		filter.yearRange[0] = ranges.detail.start;
-		filter.yearRange[1] = ranges.detail.end;
-		applyFilters();
-	}
 
+	$: applyFilters($searchFilter, $timeFilters, $categoryFilters)
 </script>
 
 <svelte:window bind:innerHeight bind:innerWidth />
 <Header detailView={structure.detailView.show} topView={structure.topView} {freq} />
 <body>
-	<div class="left-panel">
+	<div class="left-panel dark:bg-gray-900">
 		<div class="num-papers">
-			<div class="mdc-typography--headline6">Number of papers:</div>
-			<div class="mdc-typography--headline6">{filteredData.length}/{dataMeta.data.length}</div>
+			<P>Number of papers:</P>
+			<P>{filteredData.length}/{dataMeta.data.length}</P>
 		</div>
-		<SearchField on:message={updateSearchResults} />
-		<Timeline {filteredData} data={dataMeta.data} on:message={updateTimeRange} />
-		<FilterPanel {filterBy} {freq} {filteredFreq} {selectTopics} on:message={applyFilters} />
+		<SearchField/>
+		<Timeline {filteredData} data={dataMeta.data} />
+		<FilterPanel {filterBy} {freq} {filteredFreq} {selectTopics} />
 	</div>
 	<div class="main-view">
 		<Splitpanes class="default-theme " style="height:{innerHeight - 80}">
 			<Pane>
-				<div class="card-container">
+				<div class="card-container dark:bg-gray-900">
 					{#each filteredData as paper}
 						<PaperCard
 							{paper}
 							summaryView={structure.summaryView}
 							detailView={structure.detailView}
 							{meta}
-							{showImg}
 						/>
 					{/each}
 				</div>
 				{#if !showVis}
 					<div class="hide-button">
-						<IconButton class="material-icons" on:click={setVis}
-							>keyboard_double_arrow_left</IconButton
+						<Button outline class="border-0 p-1" on:click={setVis}
+							><ChevronDoubleLeftOutline/></Button
 						>
 					</div>
 				{/if}
@@ -262,11 +247,11 @@
 			{#if showVis}
 				<Pane>
 					<div class="show-button">
-						<IconButton class="material-icons" on:click={setVis}>
-							keyboard_double_arrow_right
-						</IconButton>
+						<Button outline class="border-0 p-1" on:click={setVis}>
+							<ChevronDoubleRightOutline/>
+						</Button>
 					</div>
-					<Vis data={dataMeta.data} filterBy={filterBy} on:message={applyFilters}/>
+					<Vis data={dataMeta.data} filterBy={filterBy}/>
 				</Pane>
 			{/if}
 		</Splitpanes>
@@ -288,15 +273,15 @@
 		height: 100%;
 		overflow-x: hidden;
 		padding-right:8px;
-		background-color: var(--mdc-theme-background, #fff);
 	}
 	.main-view {
 		padding-left: 300px;
 	}
 	.card-container {
-		background-color: #f2f2f2;
-		/* display: grid;
-		column-gap: 10px; */
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		column-gap: 10px;
 	}
 	.show-button {
 		position: fixed;
@@ -312,15 +297,5 @@
 		padding: 15px 15px;
 		display: flex;
 		justify-content: space-between;
-	}
-	.demo-cell {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		margin: 10px;
-		border: 1px;
-		border-style: solid;
-		border-color: var(--mdc-theme-secondary, #333);
-		color: var(--mdc-theme-secondary, rgb(15, 9, 9));
 	}
 </style>

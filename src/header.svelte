@@ -1,60 +1,50 @@
 <script>
-	import Button, { Label } from '@smui/button';
-	import IconButton, { Icon } from '@smui/icon-button';
-	import Dialog, { Content } from '@smui/dialog';
-	import Menu from '@smui/menu';
-	import List, { Item, Separator, Text } from '@smui/list';
+	import { Button, Modal, Heading, Dropdown, DropdownItem, P } from 'flowbite-svelte';
+	import { ChevronDownSolid } from 'flowbite-svelte-icons';
+
 	import surveys from './data/other-surveys.json';
 	import AddEntry from './components/addEntry.svelte';
-	let menu;
 	let open = false;
+	let menu;
 	export let detailView;
 	export let topView;
 	export let freq;
 </script>
 
-<header class="top-bar flexy">
+<header class="top-bar flexy dark:bg-gray-900">
 	<div class="survey-info">
 		{#if topView.title}
-			<h2 class="survey-title">{topView.title}</h2>
+			<Heading tag="h4">{topView.title}</Heading>
 		{/if}
 		{#if topView.description}
-			<p class="survey-subtext">
+			<P class="survey-subtext dark:text-gray-400">
 				{topView.description}
-			</p>
+			</P>
 		{/if}
 		{#if topView.authors}
-			<p class="survey-subtext">{topView.authors}</p>
+			<P class="survey-subtext dark:text-gray-400">{topView.authors}</P>
 		{/if}
 		
 	</div>
 	<div class="flex-end">
-		<Dialog bind:open fullscreen aria-describedby="sheet-content" style="z-index:10">
-			<Content id="sheet-content">
-				<AddEntry {detailView} {freq} addEntryInfo={topView.addEntry}/>
-				<div class="close-button">
-					<IconButton on:click={() => (open = false)} class="material-icons">close</IconButton>
-				</div>
-			</Content>
-		</Dialog>
-		<Button on:click={() => (open = true)}>
-			<Label>Add Entry</Label>
+		<Modal title="Terms of Service" bind:open={open} autoclose size='lg'>
+			<AddEntry {detailView} {freq} addEntryInfo={topView.addEntry}/>
+		</Modal>
+		<Button size="md" class="border-0 p-1" outline on:click={() => (open = true)}>
+			Add Entry
 		</Button>
 		<div>
-			<Button on:click={() => menu.setOpen(true)}>
-				<Label>Other Surveys</Label>
+			<Button size="md" class="border-0 p-1" outline on:click={() =>(menu = true)}>
+				Other Surveys
+				<ChevronDownSolid class="w-3 h-3 ml-2 text-white dark:text-white" />
 			</Button>
-			<Menu style={'overflow-x:hidden; padding-right:10px'} bind:this={menu} >
-				<List style="width:300px;">
-					{#each surveys as survey}
-						<li class="survey-list">
-							<a class="survey-link" href={survey.url} style="mdc-typography--body1"
-								>{survey.name}</a
-							>
-						</li>
-					{/each}
-				</List>
-			</Menu>
+			<Dropdown bind:open={menu}>
+				{#each surveys as survey}
+					<DropdownItem href={survey.url} >
+						{survey.name}
+					</DropdownItem>
+				{/each}
+			</Dropdown>
 		</div>
 	</div>
 </header>
@@ -73,19 +63,18 @@
 		right: 0;
 		height: 80px;
 		z-index: 2;
+		
 	}
 	.top-bar {
 		width: 100%;
-		border: 1px solid var(--mdc-theme-text-hint-on-background, rgba(0, 0, 0, 0.1));
-		background-color: var(--mdc-theme-background, #212125);
 		overflow: inherit;
 		display: inline-block;
 		align-items: center;
+		border-bottom: 1px solid gray !important;
 	}
 
 	.flexy {
 		display: flex;
-		flex-wrap: wrap;
 		justify-content: space-between;
 	}
 	.flex-end {

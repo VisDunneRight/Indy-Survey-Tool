@@ -1,9 +1,9 @@
 <script>
   import { blend_colors, defaultColors } from './util';
   import * as d3 from 'd3';
-  import Slider from '@smui/slider';
-  import ZoomSvg from '@svelte-parts/zoom/svg'
+  import { Range, P } from 'flowbite-svelte';
   import { createEventDispatcher } from 'svelte';
+
 	const dispatch = createEventDispatcher();
 
   const config = {boxSize:25, minAmount:10, gap: 6,
@@ -226,20 +226,19 @@ let w = 100, h = 100;
 
 <div class="corr-container" bind:clientWidth={w} bind:clientHeight={h}>
   <div class="corr-menu">
-    <span style={"padding-left:26px"}>Max Color Value: {maxColorValue}</span>
+    <P style={"padding-left:26px"}>Max Color Value: {maxColorValue}</P>
     <div>
-      <Slider
+      <Range
       bind:value={maxColorValue}
       min={0}
       max={maxPaperValue}
       step={1}
-      discrete
-      input$aria-label="Discrete slider"
+      id="Discrete slider"
     />
     
   </div>
 </div>
-  <ZoomSvg 
+  <svg 
       viewBox="0 0 
         {w}
         {h}"
@@ -247,6 +246,7 @@ let w = 100, h = 100;
     <g class="x-axis">
       {#each visData.xAxis as cate, i}
         {#if typeof cate !== 'string'}
+          <!-- svelte-ignore a11y-no-static-element-interactions -->
           <text
             on:mousedown={(e)=> mouseClick(cate)}
             on:mouseover={(e) => hightlight(e,-1,i)}
@@ -257,7 +257,7 @@ let w = 100, h = 100;
             transform="translate({columnSpacing(i)}, {modelRow(-1) - config.boxSize/2}) rotate(45)"
             alignment-baseline="middle"
             font-weight = "{cate.selected ? "bold" : "normal"}"
-            class="model-text">{cate.value}</text>   
+            class="model-text dark:fill-gray-300">{cate.value}</text>   
         {:else if i != visData.xAxis.length - 1}
           <line
             x1="{columnSpacing(i)}"
@@ -297,7 +297,9 @@ let w = 100, h = 100;
       {#each visData.yAxis as cate, j}
         {#if typeof cate !== 'string'}
           <g class="y-label">
+            <!-- svelte-ignore a11y-interactive-supports-focus -->
             <text
+                role="button"
                 on:mousedown={(e)=> mouseClick(cate)}
                 on:mouseover={(e) => hightlight(e,j,-1)}
                 on:focus={(e) => hightlight(e,j,-1)}
@@ -308,7 +310,7 @@ let w = 100, h = 100;
                 text-anchor="end"
                 alignment-baseline="middle"
                 font-weight = "{cate.selected ? "bold" : "normal"}"
-                class="model-text">{cate.value}</text>
+                class="model-text dark:fill-gray-300">{cate.value}</text>
           </g>
         {:else if j != visData.yAxis.length - 1}
           <line
@@ -351,6 +353,7 @@ let w = 100, h = 100;
         {#if typeof visData.xAxis[i] !== 'string'}
           {#each row as col, j}
             {#if typeof visData.yAxis[j] !== 'string'}
+            <!-- svelte-ignore a11y-no-static-element-interactions -->
             <g
               on:mousedown={(e)=> crossClick(visData.xAxis[i], visData.yAxis[j])}
               on:mouseover={(e) => hightlight(e,j,i)}
@@ -373,8 +376,7 @@ let w = 100, h = 100;
                 y="{modelRow(j)}"
                 text-anchor="middle"
                 dominant-baseline="central"
-                class="cross-count"
-                fill={col/maxColorValue > 0.5 ? "white": "black"}
+                class="cross-count {col/maxColorValue > 0.5 ? 'dark:fill-white' :'dark:fill-gray-400'}"
                 >{col}</text>
               </g>
             {/if}
@@ -416,7 +418,7 @@ let w = 100, h = 100;
           x="{columnSpacing((pac.line[0] + pac.line[1])/2 + .5) }"
           y="{modelRow(visData.yAxis.length + 2)}"
           text-anchor="middle"
-          class="category-label">{pac.groupName}</text>
+          class="category-label dark:fill-gray-400">{pac.groupName}</text>
       {/each}
         <g>
           <text
@@ -424,7 +426,7 @@ let w = 100, h = 100;
               y="{modelRow(-2) + config.boxSize/2}"
               text-anchor="middle"
               dominant-baseline="central"
-              class="total-count">Paper Count:</text>
+              class="total-count dark:fill-gray-300">Paper Count:</text>
 
           {#each visData.paperCountX as num, i}
             {#if typeof visData.xAxis[i] !== 'string'}
@@ -433,7 +435,7 @@ let w = 100, h = 100;
                 y="{modelRow(visData.yAxis.length + 1) - config.gap}"
                 text-anchor="middle"
                 dominant-baseline="central"
-                class="total-count">{num}</text>
+                class="total-count dark:fill-gray-400">{num}</text>
             {/if}
           {/each}
         </g>
@@ -472,7 +474,7 @@ let w = 100, h = 100;
           x="{columnSpacing(visData.xAxis.length + 2) }"
           y="{modelRow((pac.line[0] + pac.line[1])/2 + .5)}"
           text-anchor="left"
-          class="category-label">{pac.groupName}</text>
+          class="category-label dark:fill-gray-300">{pac.groupName}</text>
 
       {/each}
         <g>
@@ -481,7 +483,7 @@ let w = 100, h = 100;
               y="{modelRow(visData.yAxis.length) + config.boxSize}"
               text-anchor="end"
               dominant-baseline="central"
-              class="total-count">Paper Count:</text>
+              class="total-count dark:fill-gray-400">Paper Count:</text>
 
           {#each visData.paperCountY as num, j}
             {#if typeof visData.yAxis[j] !== 'string'}
@@ -490,7 +492,7 @@ let w = 100, h = 100;
                 y="{modelRow(j)}"
                 text-anchor="middle"
                 dominant-baseline="central"
-                class="total-count">{num}</text>
+                class="total-count dark:fill-gray-400">{num}</text>
             {/if}
           {/each}
         </g>
@@ -517,7 +519,7 @@ let w = 100, h = 100;
         class="hightlight"
       ></rect>
     {/if}
-  </ZoomSvg>
+  </svg>
 </div>
 
 <style>
@@ -533,7 +535,6 @@ let w = 100, h = 100;
     height: 100%;
   }
   .category-label{
-    fill:#666;
   }
   .end-line {
     stroke:#e0dcdc;
@@ -558,11 +559,11 @@ let w = 100, h = 100;
     pointer-events : none;
   }
   .topic-label{
+  }
 
-  }
   .total-count {
-    fill:#666;
   }
+
   .cross-count {
 
   }

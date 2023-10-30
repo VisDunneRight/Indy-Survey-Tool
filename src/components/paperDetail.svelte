@@ -1,23 +1,16 @@
 <script>
-	import Snackbar, { Actions, Label } from '@smui/snackbar';
-	import Button, { Icon } from '@smui/button';
-	import Clipboard from 'svelte-clipboard';
-	import IconButton from '@smui/icon-button';
+	import { copyText } from 'svelte-copy';
 	import Multiselect from './multiselect.svelte';
+	import { Toast, Button, Heading } from 'flowbite-svelte';
+	import {CopySolid} from 'flowbite-svelte-icons';
 
 	export let paper;
 	export let detailView;
 	export let meta;
+	let toast = false;
 
-	let snackbarWithClose;
 </script>
 
-<Snackbar bind:this={snackbarWithClose}>
-	<Label>Copied bibtex.</Label>
-	<Actions>
-		<IconButton class="material-icons" title="Dismiss">close</IconButton>
-	</Actions>
-</Snackbar>
 <div class="detail-view">
 	{#if paper.image}
 		<div style={"padding-right:10px"}>
@@ -28,21 +21,21 @@
 		</div>
 	{/if}
  	<div  class="paper-container">
-		<h2 class="mdc-typography--headline6" style="margin: 0 20px 0 0 ;">
+		<Heading tag="h4" style="margin: 0 20px 0 0 ;">
 			{paper.Name} ({paper.Year})
-		</h2>
-		<h3 class="mdc-typography--subtitle2" style="margin: 0 0 10px; color: #888;">
+		</Heading>
+		<Heading tag="h6" style="margin: 0 0 10px; color: #888;">
 			by {paper.Authors}
-		</h3>
+		</Heading>
 		{#each detailView.show as prop}
 			{#if meta[prop].type === 'String'}
 				<div class="string-select">
-					<div class="mdc-typography--body1"><strong>{prop}:&nbsp;</strong></div>
-					<div class="mdc-typography--body1">{paper[prop]}</div>
+					<div><strong>{prop}:&nbsp;</strong></div>
+					<div>{paper[prop]}</div>
 				</div>
 			{:else if meta[prop].type === 'MultiSelect'}
 				<div class="multi-select">
-					<div class="mdc-typography--body1"><strong>{prop}:</strong></div>
+					<div><strong>{prop}:&nbsp</strong></div>
 					{#if paper[prop].length > 0 && paper[prop][0] !== ''}
 						<Multiselect list={paper[prop]} />
 					{/if}
@@ -51,20 +44,17 @@
 		{/each}
 		<div class="url-link">URL: <a href={paper.DOI}>{paper.DOI}</a></div>
 		<div class="paper-icon">
-			<Clipboard
-				text={paper.Bibtex}
-				let:copy
-				on:copy={() => {
-					snackbarWithClose.open();
-				}}
-			>
-				<Button color="secondary" on:click={copy}>
-					<Icon class="material-icons">download</Icon>
-					<Label>Bibtex</Label>
+				<Button outline class="border-0" on:click={(e)=>{copyText(paper.Bibtex); toast=true;}}>
+					<CopySolid class="w-4 h-4"/>
+					<span>&nbsp Bibtex</span>
 				</Button>
-			</Clipboard>
 		</div>
 	</div>
+</div>
+<div class="absolute flex justify-center items-center w-full p-2 bottom-2 z-10">
+	<Toast dismissable={true} bind:open={toast} >
+		<div>Copied bibtex.</div>
+	</Toast>
 </div>
 
 <style>
@@ -78,6 +68,7 @@
 		justify-content: flex-start;
 		flex-wrap: wrap;
 		align-content: flex-start;
+		padding: 2px 0px 2px 0px;
 	}
 	.string-select {
 		height: 40px;

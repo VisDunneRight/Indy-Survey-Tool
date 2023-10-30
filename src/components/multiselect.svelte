@@ -1,13 +1,11 @@
 <script>
-	import Chip, { Set, Text } from '@smui/chips';
+	import {Badge} from 'flowbite-svelte'
 	export let list = [];
 </script>
-
-<Set chips={list} let:chip nonInteractive style="padding:0px">
-	<Chip {chip}>
-		<Text>{chip}</Text>
-	</Chip>
-</Set>
-
+<div class="flex space-x-1">
+{#each list as item }
+	<Badge large color="indigo" rounded>{item}</Badge>
+{/each}
+</div>
 <style>
 </style>

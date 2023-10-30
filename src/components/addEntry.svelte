@@ -1,8 +1,7 @@
 <script>
-	import Textfield from '@smui/textfield';
-	import Button, { Label } from '@smui/button';
 	import MultiCombo from './multiCombo.svelte';
-	import Clipboard from 'svelte-clipboard';
+	import { Textarea, Button, FloatingLabelInput, Heading } from 'flowbite-svelte';
+	import { copyText} from 'svelte-copy';
 
 	let stitle = '';
 	let title = '';
@@ -46,6 +45,7 @@
 			}
 		});
 	};
+
 	const generateJson = () => {
 		const paper = {
 			shortTitle: stitle,
@@ -80,23 +80,12 @@
 </script>
 
 <div>
-	<div class="mdc-typography--headline3">Add Entry</div>
+	<Heading tag="h3">Add Entry</Heading>
 	{#each addEntryInfo.description as para}
 		<p class="mdc-typography--body1">
 			{para}
 		</p>
 	{/each}
-	<!-- <p class="mdc-typography--body1">
-		If you are an author of a peer-reviewed published work on Immersive Analytics that presents a
-		contribution missing in our browser, please feel free to submit an entry. Filling out the form
-		below will create a json entry that can be added as an issue to the github together with a
-		100x100px PNG thumbail.
-	</p>
-	<p class="mdc-typography--body1">
-		The URL provided in the form should point to a DOI. Also, please acknowledge the fact that by
-		submitting an entry, you provide us with permissions to use your image on this resource and in
-		related publications.
-	</p> -->
 	<p class="mdc-typography--body1">
 		<strong>Note:</strong> if you would like to update an entry, click on the 3 dots found on the entry
 		you wish to update.
@@ -105,53 +94,65 @@
 		<div class="entry-row">
 			<div class="title-text mdc-typography--body1"><strong>Short Title:</strong></div>
 			<div class="text-field">
-				<Textfield
-					style="width: 100%; height:40px"
-					helperLine$style="width: 100%;"
-					variant="outlined"
+				<FloatingLabelInput
+					size ="small"
+					style="outlined"
+					id="short_title"
+					name="short_title"
 					on:change={generateJson}
 					bind:value={stitle}
-					label="e.g., ex-Short Title"
-				/>
+					type="text"
+				>
+				e.g., ex-Short Title
+				</FloatingLabelInput>
 			</div>
 		</div>
 		<div class="entry-row">
 			<div class="title-text mdc-typography--body1"><strong>Title:</strong></div>
 			<div class="text-field">
-				<Textfield
-					style="width: 100%; height:40px"
-					helperLine$style="width: 100%;"
-					variant="outlined"
+				<FloatingLabelInput
+					size ="small"
+					style="outlined"
+					id="title"
+					name="title"
 					on:change={generateJson}
 					bind:value={title}
-					label="e.g., Longest Title of a Paper: The Story"
-				/>
+					type="text"
+				>
+				e.g., Longest Title of a Paper: The Story
+				</FloatingLabelInput>
 			</div>
 		</div>
 		<div class="entry-row">
 			<div class="title-text mdc-typography--body1"><strong>Year:</strong></div>
 			<div class="text-field">
-				<Textfield
-					style="width: 100%; height:40px"
-					helperLine$style="width: 100%;"
-					variant="outlined"
+				<FloatingLabelInput
+					size ="small"
+					style="outlined"
+					id="year"
+					name="year"
 					on:change={generateJson}
 					bind:value={year}
-					label="e.g., 2023"
-				/>
+					type="text"
+				>
+				e.g., 2023
+				</FloatingLabelInput>
 			</div>
 		</div>
 		<div class="entry-row">
 			<div class="title-text mdc-typography--body1"><strong>Authors:</strong></div>
 			<div class="text-field">
-				<Textfield
-					style="width: 100%; height:40px"
-					helperLine$style="width: 100%;"
-					variant="outlined"
+				<FloatingLabelInput
+					size ="small"
+					style="outlined"
+					id="authors"
+					name="authors"
 					on:change={generateJson}
 					bind:value={authors}
-					label="e.g., John Doe, Jane Doe, Jack Doe"
-				/>
+					type="text"
+				>
+				e.g., John Doe, Jane Doe, Jack Doe
+				</FloatingLabelInput>
 			</div>
 		</div>
 		<div class="entry-row">
@@ -167,16 +168,13 @@
 								on:message={updateCategory}
 							/>
 						{:else}
-							<div class="text-field">
-								<Textfield
+								<Textarea
 									style="width: 100%; height:40px"
-									helperLine$style="width: 100%;"
-									variant="outlined"
+									rows="2"
 									on:change={generateJson}
 									bind:value={category.value}
-									label={category.label}
+									placeholder={category.label}
 								/>
-							</div>
 						{/if}
 					</div>
 				{/each}
@@ -184,56 +182,49 @@
 		</div>
 		<div class="entry-row">
 			<div class="title-text mdc-typography--body1"><strong>BibTex:</strong></div>
-			<div class="text-field">
-				<Textfield
+				<Textarea
 					style="width: 100%;"
-					helperLine$style="width: 100%;"
-					textarea
+					rows="2"
 					on:change={generateJson}
 					bind:value={bibtex}
-					label="copy and paste bibtexe"
+					placeholder="copy and paste bibtex"
 				/>
-			</div>
 		</div>
 		<div class="entry-row">
 			<div class="title-text mdc-typography--body1"><strong>DOI:</strong></div>
 			<div class="text-field">
-				<Textfield
-					style="width: 100%; height:40px"
-					helperLine$style="width: 100%;"
-					variant="outlined"
+				<FloatingLabelInput
+					size ="small"
+					style="outlined"
+					id="doi"
+					name="doi"
 					on:change={generateJson}
 					bind:value={doi}
-					label="e.g., https://doi.org/0"
-				/>
+					type="text"
+				>
+				e.g., https://doi.org/0
+				</FloatingLabelInput>
 			</div>
 		</div>
 	</div>
 	<div style="display:flex; justify-content:space-between; ">
 		<div>
 			<Button on:click={reset}>
-				<Label>Reset</Label>
+				Reset
 			</Button>
 		</div>
 		<div>
-			<Clipboard
-				text={json}
-				let:copy
-				on:copy={() => {
-					console.log(json);
-				}}
-			>
-				<Button on:click={copy}>
-					<Label>Copy to Clipboard</Label>
-				</Button>
-			</Clipboard>
+
+			<Button on:click={() => {copyText(json);}}>
+				Copy to Clipboard
+			</Button>
 			{#if addEntryInfo.github}
 				<Button on:click={() => window.open(addEntryInfo.github, '_blank')}>
-					<Label>Open Issue</Label>
+					Open Issue
 				</Button>
 			{:else if addEntryInfo.email}
 				<Button on:click={() => window.open(addEntryInfo.email, '_blank')}>
-					<Label>Open email</Label>
+					Open email
 				</Button>
 			{/if}
 			
@@ -242,8 +233,6 @@
 </div>
 
 <style>
-	.entry-content {
-	}
 	.title-cate {
 		padding: 5px 10px;
 	}
@@ -266,7 +255,8 @@
 		align-items: center;
 		width: 100%;
 	}
-	* :global(.text-field) {
+	.text-field {
 		width: 100%;
+		height: 40px;
 	}
 </style>

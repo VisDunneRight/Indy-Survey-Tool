@@ -28,16 +28,29 @@
 	}
 </script>
 
-<Select
-	on:change={handleChange}
-	multiple
-	on:filter={handleFilter}
-	bind:filterText
-	bind:value
-	{items}
->
-	<div slot="item" let:item>
-		{item.created ? 'Add new: ' : ''}
-		{item.label}
-	</div>
-</Select>
+<div class="select">
+	<Select
+		on:change={handleChange}
+		multiple
+		on:filter={handleFilter}
+		bind:filterText
+		bind:value
+		{items}
+	>
+		<div slot="item" let:item>
+			{item.created ? 'Add new: ' : ''}
+			{item.label}
+		</div>
+	</Select>
+</div>
+
+<style>
+	.select {
+		--background: #1F2937;
+		--list-background:#1F2937;
+		--multi-item-bg:#1F2937;
+		--border: 1px solid gray;
+		--item-hover-color:black;
+		/* --item-hover-bg:black; */
+	}
+</style>
