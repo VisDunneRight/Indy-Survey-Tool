@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 
-export const categoryFilters = writable([]);
+export const filterBy = writable([]);
 export const timeFilters = writable({ start: 2013, end: 2022 });
 export const searchFilter = writable("");
 

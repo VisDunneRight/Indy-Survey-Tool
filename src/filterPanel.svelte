@@ -4,16 +4,14 @@
 
   import { Button } from "flowbite-svelte";
   import { ReplyOutline } from "flowbite-svelte-icons";
+  import { filterBy } from "./store"
 
-  import { createEventDispatcher } from "svelte";
-
-  const dispatch = createEventDispatcher();
   export let freq = [];
   export let filteredFreq = [];
-  export let filterBy = [];
   export let selectTopics = [];
+  $:topics = selectTopics
   const clearSelections = () => {
-    filterBy.forEach((prop) => {
+    $filterBy.forEach((prop) => {
       if (prop.values) {
         prop.selected = [];
       } else {
@@ -22,12 +20,11 @@
         });
       }
     });
-    filterBy = filterBy;
-    dispatch("message", { text: "Clear all filter selection." });
+    $filterBy = $filterBy;
   };
 
   const removeSelection = (select) => {
-    filterBy.forEach((prop) => {
+    $filterBy.forEach((prop) => {
       if (prop.values) {
         let idx = prop.selected.indexOf(select);
         if (idx > 0) {
@@ -44,9 +41,9 @@
         });
       }
     });
-    filterBy = filterBy;
-    dispatch("message", { text: "Remove one topic" });
+    $filterBy = $filterBy;
   };
+  $:console.log(selectTopics);
 </script>
 
 <div class="accordion-container">
@@ -63,13 +60,13 @@
     </Button>
   </div>
   <div>
-		{#each selectTopics as topic }
-			<Badge dismissable large on:close={(e) => removeSelection(topic)}>{topic}</Badge>
+		{#each topics as topic }
+			<Badge class="p-2 h-5 ml-1" large on:close={(e) => removeSelection(topic)}>{topic}</Badge>
 		{/each}
   </div>
   <div style="padding-bottom:60px">
     <Accordion multiple style=" padding-left:3px; padding-right: 5px;">
-      {#each filterBy as prop}
+      {#each $filterBy as prop}
         <!-- <Panel square extend style="padding-bottom: 30px; padding-left:10px"> -->
 
         {#if prop.values && prop.values.length > 0}

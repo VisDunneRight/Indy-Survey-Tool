@@ -3,6 +3,7 @@
   import * as d3 from 'd3';
   import { Range, P } from 'flowbite-svelte';
   import { createEventDispatcher } from 'svelte';
+  import { filterBy } from "../store"
 
 	const dispatch = createEventDispatcher();
 
@@ -11,7 +12,6 @@
   const padding = { top:200, right:150, bottom: 200, left:250};
 
   export let data;
-  export let filterBy;
   export let selectedDimX;
   export let selectedDimY;
   let maxColorValue = 10;
@@ -64,8 +64,8 @@
     }
     return selectProp;
   }
-  $:dimX = getDimInfo(selectedDimX, filterBy);
-  $:dimY = getDimInfo(selectedDimY, filterBy);
+  $:dimX = getDimInfo(selectedDimX, $filterBy);
+  $:dimY = getDimInfo(selectedDimY, $filterBy);
   let visInit = {xAxis:[], yAxis:[], matrix:[], 
                  cateSepX:[], cateSepY:[],
                  paperCountX:[], paperCountY:[]}
@@ -177,7 +177,7 @@
       event.preventDefault();
   }
   function addSelection(selectedCate){
-    filterBy.forEach((filter)=>{
+    $filterBy.forEach((filter)=>{
       if('groupName' in filter){
         filter.categories.forEach((cate)=>{
           if(cate.name === selectedCate.cateName){

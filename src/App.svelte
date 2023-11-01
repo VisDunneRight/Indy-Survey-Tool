@@ -10,8 +10,8 @@
   import Vis from "./vis.svelte";
 	import structure from './data/survey-config.json';
 	import dataMeta from './data/survey-data.json';
-	import {searchFilter, categoryFilters, timeFilters} from './store';
-	import flatten from 'lodash/flatten'
+	import {searchFilter, timeFilters, filterBy} from './store';
+  import filter from 'svelte-select/filter';
 
 	let innerHeight = 0;
 	let innerWidth = 0;
@@ -28,8 +28,8 @@
 		meta[prop.name] = prop;
 	});
 
-	let filterBy = structure.filterBy;
-	filterBy.forEach((prop) => {
+	$filterBy = structure.filterBy;
+	$filterBy.forEach((prop) => {
 		if(prop.values){
 			if (prop.name in meta && meta[prop.name].type === 'MultiSelect'){
 				prop.selected = [];
@@ -43,7 +43,6 @@
 		}
 		 
 	});
-	$:console.log(structure.filterBy)
 	addMissingValues();
 
 	function freqCount(prop, arrValue, freqDict) {
@@ -70,7 +69,7 @@
 	});
 
 	function addMissingValues(){
-		filterBy.forEach((group)=>{
+		$filterBy.forEach((group)=>{
 			if("groupName" in group){
 				group['categories'].forEach((cate)=>{
 					if(!("values" in cate)){
@@ -103,7 +102,8 @@
 	}
 
 
-	function applyFilters(searchFilter, timeFilters, categoryFilters) {
+	function applyFilters(searchFilter, timeFilters, filterBy) {
+		console.log(filterBy);
 		//This is a shallow copy, we only interested in the order
 		let startingPoint = [...dataMeta.data];
 
@@ -189,7 +189,7 @@
 				return -1;
 			}
 		});
-
+		console.log(selectTopics);
 		selectTopics = [];
 		filterBy.forEach((filter)=>{
 			if('groupName' in filter){
@@ -200,6 +200,7 @@
 				selectTopics = selectTopics.concat(filter.selected);
 			}
 		})
+		console.log(selectTopics);
 		filterBy = [...filterBy];
 	}
 
@@ -208,7 +209,7 @@
 	}
 
 
-	$: applyFilters($searchFilter, $timeFilters, $categoryFilters)
+	$: applyFilters($searchFilter, $timeFilters, $filterBy)
 </script>
 
 <svelte:window bind:innerHeight bind:innerWidth />
@@ -221,7 +222,7 @@
 		</div>
 		<SearchField/>
 		<Timeline {filteredData} data={dataMeta.data} />
-		<FilterPanel {filterBy} {freq} {filteredFreq} {selectTopics} />
+		<FilterPanel {freq} {filteredFreq} {selectTopics} />
 	</div>
 	<div class="main-view">
 		<Splitpanes class="default-theme " style="height:{innerHeight - 80}">
@@ -251,7 +252,7 @@
 							<ChevronDoubleRightOutline/>
 						</Button>
 					</div>
-					<Vis data={dataMeta.data} filterBy={filterBy}/>
+					<Vis data={dataMeta.data}/>
 				</Pane>
 			{/if}
 		</Splitpanes>

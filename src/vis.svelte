@@ -1,12 +1,12 @@
 <script>
   import { Button, P } from "flowbite-svelte";
   import CorrMetric from "./viscomponets/corrMetric.svelte";
+  import { filterBy } from "./store"
   export let data;
-  export let filterBy;
   let choicesDim = [];
 
   //Get the list of dimension to visualize
-  filterBy.forEach((prop) => {
+  $filterBy.forEach((prop) => {
     //This contains two levels of grouping
     if ("groupName" in prop) {
       choicesDim.push(prop.groupName);
@@ -55,7 +55,7 @@
   </div>
 
   <!-- Create the visualization -->
-  <CorrMetric {data} {filterBy} {selectedDimX} {selectedDimY} on:message />
+  <CorrMetric {data} {selectedDimX} {selectedDimY} on:message />
 </div>
 
 <style>
