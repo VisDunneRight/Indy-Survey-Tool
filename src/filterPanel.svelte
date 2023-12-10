@@ -43,7 +43,6 @@
     });
     $filterBy = $filterBy;
   };
-  $:console.log(selectTopics);
 </script>
 
 <div class="accordion-container">

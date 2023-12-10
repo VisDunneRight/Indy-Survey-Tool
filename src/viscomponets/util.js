@@ -5,6 +5,35 @@ export let defaultColors = [
   "#f5bd0f",
   "#e5a50f",
 ];
+
+export let spectralColorScheme = [
+  "#9E0142",
+  "#D53E4F",
+  "#F46D43",
+  "#FDAE61",
+  "#FEE08B",
+  "#FFFFBF",
+  "#E6F598",
+  "#ABDDA4",
+  "#66C2A5",
+  "#3288BD",
+  "#5E4FA2",
+];
+
+export let spectralColorSchemeText = [
+  "#F3F4F6",
+  "#F3F4F6",
+  "#F3F4F6",
+  "#F3F4F6",
+  "#263238",
+  "#263238",
+  "#263238",
+  "#263238",
+  "#263238",
+  "#F3F4F6",
+  "#F3F4F6",
+];
+
 /*
     blend two colors to create the color that is at the percentage away from the first color
     this is a 5 step process

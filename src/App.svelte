@@ -225,7 +225,7 @@
 		<FilterPanel {freq} {filteredFreq} {selectTopics} />
 	</div>
 	<div class="main-view">
-		<Splitpanes class="default-theme " style="height:{innerHeight - 80}">
+		<Splitpanes class="default-theme " style="height:{innerHeight - 80}px">
 			<Pane>
 				<div class="card-container dark:bg-gray-900">
 					{#each filteredData as paper}
@@ -252,7 +252,7 @@
 							<ChevronDoubleRightOutline/>
 						</Button>
 					</div>
-					<Vis data={dataMeta.data}/>
+					<Vis data={dataMeta.data} />
 				</Pane>
 			{/if}
 		</Splitpanes>
